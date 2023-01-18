@@ -10,7 +10,7 @@ import ImageGallery from './ImageGallery/ImageGallery';
 import Loader from './Loader/Loader';
 import Button from './Button/Button';
 import Modal from './Modal/Modal';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function App () {
   const [query, setQuery] = useState('');
@@ -19,6 +19,13 @@ export default function App () {
   const [status, setStatus] = useState('idle');
   const [showModal, setShowModal] = useState(false);
   const [modalImage, setModalImage] = useState('');
+
+  useEffect(() => {
+    if(!query) {
+        return;
+    }
+    api(query, page);
+},[query, page])
 
   const  handleSubmitForm = async (query, page) => {
     try {
