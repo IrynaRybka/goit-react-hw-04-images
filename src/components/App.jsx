@@ -22,6 +22,7 @@ export default function App () {
 
   const  handleSubmitForm = async (query, page) => {
     try {
+      setStatus('pending');
       const { hits } = await api(query, page);
       if (hits.length > 0) {
         setStatus('resolved');
@@ -32,7 +33,7 @@ export default function App () {
       }
      else {
       setStatus('idle');
-        toast.info('Нет таких картинок, попробуйте другое слово');
+        toast.info(`Sorry, we don't have pictures like ${query}. Try another word please`);
       }
     } catch (error) {
       setStatus('rejected');
@@ -54,7 +55,7 @@ export default function App () {
     }
   };
 
-  const scrollDown = () =>{
+  const scrollDown = () => {
     window.scrollTo({
       top: document.documentElement.scrollHeight,
       behavior: 'smooth',
@@ -76,7 +77,7 @@ export default function App () {
         <ToastContainer position="top-left" theme="colored" />
         <Searchbar onSubmit={handleSubmitForm} />
         <div className={css.text_idle}>
-          <p>Напишите какие картинки вы хотите увидеть. Например "cat"</p>
+          <p>Write please what kind of pictures you will whant to find. For example "cat"</p>
         </div>
       </div>
     );
